@@ -10,6 +10,8 @@ import UIKit
 
 class TweetTableViewController: UITableViewController {
     
+    var tweets = [[Tweet]]()
+    
     // MARK: - View Controller Lifecycle
     
     override func viewDidLoad() {
