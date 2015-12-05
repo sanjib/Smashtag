@@ -116,7 +116,7 @@ public class TwitterRequest
     // handler is not necessarily called on the main queue
     
     func performTwitterRequest(method: SLRequestMethod, handler: (PropertyList?) -> Void) {
-        var jsonExtension = (self.requestType.rangeOfString(JSONExtension) == nil) ? JSONExtension : ""
+        let jsonExtension = (self.requestType.rangeOfString(JSONExtension) == nil) ? JSONExtension : ""
         let request = SLRequest(
             forServiceType: SLServiceTypeTwitter,
             requestMethod: method,

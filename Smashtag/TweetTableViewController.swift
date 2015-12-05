@@ -8,14 +8,31 @@
 
 import UIKit
 
-class TweetTableViewController: UITableViewController {
+class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     var tweets = [[Tweet]]()
+    var lastSuccessfulRequest: TwitterRequest?
+    var nextRequestToAttempt: TwitterRequest? {
+        if lastSuccessfulRequest == nil {
+            if searchText != nil {
+                return TwitterRequest(search: searchText!, count: 100)
+            } else {
+                return nil
+            }
+        } else {
+            return lastSuccessfulRequest!.requestForNewer
+        }
+    }
     
     // MARK: - View Controller Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.estimatedRowHeight = tableView.rowHeight
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
+        refresh()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -23,28 +40,83 @@ class TweetTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
+    
+    // MARK: - Search
+    
+    private func refresh() {
+        if refreshControl != nil {
+            refreshControl?.beginRefreshing()
+        }
+        refresh(refreshControl)
+    }
+    
+    @IBAction func refresh(sender: UIRefreshControl?) {
+        if searchText != nil {
+            if let request = nextRequestToAttempt {
+                request.fetchTweets { (newTweets) -> Void in
+                    dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                        if newTweets.count > 0 {
+                            self.lastSuccessfulRequest = request
+                            self.tweets.insert(newTweets, atIndex: 0)
+                            self.tableView.reloadData()
+                        }
+                        sender?.endRefreshing()
+                    }
+                }
+            }
+        } else {
+            sender?.endRefreshing()
+        }
+    }    
+    
+    var searchText: String? = "#stanford" {
+        didSet {
+            lastSuccessfulRequest = nil
+            searchTextField?.text = searchText
+            tweets.removeAll()
+            tableView.reloadData()
+            refresh()
+        }
+    }
+    
+    @IBOutlet weak var searchTextField: UITextField! {
+        didSet {
+            searchTextField.delegate = self
+            searchTextField.text = searchText
+        }
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == searchTextField {
+            textField.resignFirstResponder()
+            searchText = textField.text
+        }
+        return true
+    }
+    
 
-    // MARK: - Table view data source
+    // MARK: - UITableViewDataSource
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return tweets.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return tweets[section].count
     }
 
-    /*
+    private struct Storyboard {
+        static let CellReuseIdentifier = "Tweet"
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.CellReuseIdentifier, forIndexPath: indexPath) as! TweetTableViewCell
 
-        // Configure the cell...
+        let tweet = tweets[indexPath.section][indexPath.row]
+        cell.tweet = tweet
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
