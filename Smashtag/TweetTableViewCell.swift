@@ -21,6 +21,22 @@ class TweetTableViewCell: UITableViewCell {
     @IBOutlet weak var tweetTextLabel: UILabel!
     @IBOutlet weak var tweetCreatedLabel: UILabel!
     
+    // Attributes for highlighting tweet text: hashtags, urls, and user mentions
+    private struct Attributes {
+        static let Hashtags = [
+            // hex: FF 95 00
+            NSForegroundColorAttributeName: UIColor.init(red: 0xFF/155, green: 0x95/255, blue: 0x00/255, alpha: 1.0)
+        ]
+        static let Urls = [
+            // hex: 1D 62 F0
+            NSForegroundColorAttributeName: UIColor.init(red: 0x1D/255, green: 0x62/255, blue: 0xF0/255, alpha: 1.0)
+        ]
+        static let UserMentions = [
+            // hex: 4C D9 64
+            NSForegroundColorAttributeName: UIColor.init(red: 0x4C/255, green: 0xD9/255, blue: 0x64/255, alpha: 1.0)
+        ]
+    }
+    
     private func updateUI() {
         // reset any existing tweet information
         tweetTextLabel?.attributedText = nil
@@ -31,12 +47,16 @@ class TweetTableViewCell: UITableViewCell {
         // load new information from tweet (if any)
         if let tweet = tweet {
             
-            tweetTextLabel?.text = tweet.text
-            if tweetTextLabel?.text != nil {
-                for _ in tweet.media {
-                    tweetTextLabel.text! += " 📷"
-                }
+            // Tweet Text
+            let tweetText = NSMutableAttributedString(string: tweet.text)
+            tweetText.addAttributes(Attributes.Hashtags, indexedKeywords: tweet.hashtags)
+            tweetText.addAttributes(Attributes.Urls, indexedKeywords: tweet.urls)
+            tweetText.addAttributes(Attributes.UserMentions, indexedKeywords: tweet.userMentions)
+            for _ in tweet.media {
+                tweetText.appendAttributedString(NSAttributedString(string: " 📷"))
             }
+            tweetTextLabel?.attributedText = tweetText
+            
             
             tweetScreenNameLabel?.text = "\(tweet.user)" // tweet.user.description
             
@@ -67,6 +87,12 @@ class TweetTableViewCell: UITableViewCell {
             tweetCreatedLabel?.text = formatter.stringFromDate(tweet.created)
         }
     }
-    
-    
+}
+
+private extension NSMutableAttributedString {
+    func addAttributes(attrs: [String : AnyObject], indexedKeywords: [Tweet.IndexedKeyword]) {
+        for indexedKeyword in indexedKeywords {
+            self.addAttributes(attrs, range: indexedKeyword.nsrange)
+        }
+    }
 }

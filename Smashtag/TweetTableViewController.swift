@@ -92,8 +92,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
             searchText = textField.text
         }
         return true
-    }
-    
+    }    
 
     // MARK: - UITableViewDataSource
 
