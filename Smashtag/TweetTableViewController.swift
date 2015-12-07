@@ -24,6 +24,11 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    private struct Storyboard {
+        static let CellReuseIdentifier = "Tweet"
+        static let ShowMentionSegue = "Show Mention Seugue"
+    }
+    
     // MARK: - View Controller Lifecycle
     
     override func viewDidLoad() {
@@ -33,7 +38,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         tableView.rowHeight = UITableViewAutomaticDimension
         
         refresh()
-
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -69,7 +74,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }    
     
-    var searchText: String? = "#stanford" {
+    var searchText: String? = "#swift" {
         didSet {
             lastSuccessfulRequest = nil
             searchTextField?.text = searchText
@@ -102,10 +107,6 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tweets[section].count
-    }
-
-    private struct Storyboard {
-        static let CellReuseIdentifier = "Tweet"
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -152,14 +153,19 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == Storyboard.ShowMentionSegue {
+            if let mvc = segue.destinationViewController as? MentionTableViewController {
+                if let indexPathForSelectedRow = tableView.indexPathForSelectedRow {
+                    mvc.tweet = tweets[indexPathForSelectedRow.section][indexPathForSelectedRow.row]                    
+                }
+            }
+        }
     }
-    */
+    
+    
 
 }

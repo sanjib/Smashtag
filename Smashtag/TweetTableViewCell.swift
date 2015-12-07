@@ -57,12 +57,10 @@ class TweetTableViewCell: UITableViewCell {
             }
             tweetTextLabel?.attributedText = tweetText
             
-            
             tweetScreenNameLabel?.text = "\(tweet.user)" // tweet.user.description
             
             if let profileImageURL = tweet.user.profileImageURL {
                 let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
-                
                 dispatch_async(dispatch_get_global_queue(qos, 0)) {
                     if let imageData = NSData(contentsOfURL: profileImageURL) {
                         dispatch_async(dispatch_get_main_queue()) {
@@ -89,6 +87,7 @@ class TweetTableViewCell: UITableViewCell {
     }
 }
 
+// An example of creating elegant code through private extensions
 private extension NSMutableAttributedString {
     func addAttributes(attrs: [String : AnyObject], indexedKeywords: [Tweet.IndexedKeyword]) {
         for indexedKeyword in indexedKeywords {
