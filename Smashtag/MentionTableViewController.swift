@@ -87,6 +87,7 @@ class MentionTableViewController: UITableViewController {
     private struct Storyboard {
         static let ImageCellIdentifier = "Image Cell"
         static let TextCellIdentifier  = "Text Cell"
+        static let TwitterSearchSegue  = "Twitter Search"
         static let ShowImageSegue      = "Show Image"
     }
     
@@ -186,19 +187,44 @@ class MentionTableViewController: UITableViewController {
 
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if let indexPath = tableView.indexPathForSelectedRow {
+            let mention = mentions[indexPath.section][indexPath.row]
+            switch mention {
+            case .URL(let urlString):
+                if let url = NSURL(string: urlString.keyword) {
+                    UIApplication.sharedApplication().openURL(url)
+                }
+                return false
+            default: break
+            }
+        }
+        return true
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == Storyboard.ShowImageSegue {
-            if let ivc = segue.destinationViewController as? ImageViewController {
-                if let indexPath = tableView.indexPathForSelectedRow {
-                    let mention = mentions[indexPath.section][indexPath.row]
-                    switch mention {
-                    case .Image(let media):
-                        ivc.imageURL = media.url
-                        ivc.aspectRatio = media.aspectRatio
-                    default: break
+        if let segueIdentifier = segue.identifier {
+            switch segueIdentifier {
+            case Storyboard.ShowImageSegue:
+                if let ivc = segue.destinationViewController as? ImageViewController {
+                    if let indexPath = tableView.indexPathForSelectedRow {
+                        let mention = mentions[indexPath.section][indexPath.row]
+                        switch mention {
+                        case .Image(let media):
+                            ivc.imageURL = media.url
+                            ivc.aspectRatio = media.aspectRatio
+                        default: break
+                        }
                     }
                 }
+            case Storyboard.TwitterSearchSegue:
+                if let tvc = segue.destinationViewController as? TweetTableViewController {
+                    if let indexPath = tableView.indexPathForSelectedRow {
+                        let mention = mentions[indexPath.section][indexPath.row]
+                        tvc.searchText = mention.indexedKeyword?.keyword
+                    }
+                }
+            default: break
             }
         }
     }

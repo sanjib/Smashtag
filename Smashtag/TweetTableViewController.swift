@@ -154,6 +154,9 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     */
 
     // MARK: - Navigation
+    
+    @IBAction func goBack(segue: UIStoryboardSegue) {        
+    }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
