@@ -143,6 +143,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="mentionImageView" destination="glr-aG-JJI" id="drn-q3-i40"/>
+                                    <segue destination="uKo-k7-XjL" kind="show" identifier="Show Image" id="kzs-kq-0oh"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Text Cell" id="Wfw-M1-mLk" customClass="MentionTextTableViewCell" customModule="Smashtag" customModuleProvider="target">
@@ -188,6 +189,44 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R7h-If-8F5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1987" y="416"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="gfn-ye-0cL">
+            <objects>
+                <viewController id="uKo-k7-XjL" customClass="ImageViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bVY-Ie-Lof"/>
+                        <viewControllerLayoutGuide type="bottom" id="iDU-gz-5U3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Tbd-il-uxB">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GMj-dr-N5T">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="6BH-zy-Ga2">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GMj-dr-N5T" firstAttribute="leading" secondItem="Tbd-il-uxB" secondAttribute="leading" id="Rab-E6-veO"/>
+                            <constraint firstItem="GMj-dr-N5T" firstAttribute="bottom" secondItem="iDU-gz-5U3" secondAttribute="top" id="UYx-g0-8S0"/>
+                            <constraint firstAttribute="trailing" secondItem="GMj-dr-N5T" secondAttribute="trailing" id="ZWo-xp-bfq"/>
+                            <constraint firstItem="GMj-dr-N5T" firstAttribute="centerX" secondItem="6BH-zy-Ga2" secondAttribute="centerX" id="izz-kd-qnQ"/>
+                            <constraint firstItem="GMj-dr-N5T" firstAttribute="top" secondItem="Tbd-il-uxB" secondAttribute="top" id="oW9-bQ-zb2"/>
+                            <constraint firstItem="GMj-dr-N5T" firstAttribute="centerY" secondItem="6BH-zy-Ga2" secondAttribute="centerY" id="wgL-B3-Dl3"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="scrollView" destination="GMj-dr-N5T" id="97W-6g-PvF"/>
+                        <outlet property="spinner" destination="6BH-zy-Ga2" id="b2R-yD-Pe2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hhL-TC-Y7D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2802" y="416"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1Mw-yR-DT0">

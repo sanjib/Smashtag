@@ -87,6 +87,7 @@ class MentionTableViewController: UITableViewController {
     private struct Storyboard {
         static let ImageCellIdentifier = "Image Cell"
         static let TextCellIdentifier  = "Text Cell"
+        static let ShowImageSegue      = "Show Image"
     }
     
     private struct Constants {
@@ -182,14 +183,24 @@ class MentionTableViewController: UITableViewController {
     }
     */
 
-    /*
+
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == Storyboard.ShowImageSegue {
+            if let ivc = segue.destinationViewController as? ImageViewController {
+                if let indexPath = tableView.indexPathForSelectedRow {
+                    let mention = mentions[indexPath.section][indexPath.row]
+                    switch mention {
+                    case .Image(let media):
+                        ivc.imageURL = media.url
+                        ivc.aspectRatio = media.aspectRatio
+                    default: break
+                    }
+                }
+            }
+        }
     }
-    */
 
 }
