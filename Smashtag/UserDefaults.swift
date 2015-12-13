@@ -38,11 +38,11 @@ class UserDefaults {
 
     }
     
-    func allRecentSearches() -> [String] {
+    var allRecentSearches: [String] {
         return recentSearches
     }
     
-    func latestRecentSearch() -> String {
+    var latestRecentSearch: String {
         if let latestSearch = recentSearches.first {
             return latestSearch
         } else {
