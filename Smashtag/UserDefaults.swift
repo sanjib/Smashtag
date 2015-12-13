@@ -51,6 +51,18 @@ class UserDefaults {
     }
     
     func insertRecentSearch(searchQuery: String) {
+        // Keep recent searches unique
+        let matches = recentSearches.filter { $0 == searchQuery }
+        if matches.first != nil {
+            // it's enough to remove the first match, since we ensure only unique
+            // searches are saved (matches will never contain more than 1 item)
+            if let indexToRemove = recentSearches.indexOf(matches.first!) {
+                print(indexToRemove)
+                recentSearches.removeAtIndex(indexToRemove)
+            }
+        }
+        
+        // Limit recent search save count
         if recentSearches.count >= Constants.MaxSearchesToSave {
             recentSearches.removeLast()
         }
