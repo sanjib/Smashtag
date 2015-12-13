@@ -74,7 +74,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }    
     
-    var searchText: String? = "#art" {
+    var searchText: String? = UserDefaults.sharedInstance.latestRecentSearch() {
         didSet {
             lastSuccessfulRequest = nil
             searchTextField?.text = searchText
@@ -95,6 +95,9 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         if textField == searchTextField {
             textField.resignFirstResponder()
             searchText = textField.text
+            if searchText != nil {
+                UserDefaults.sharedInstance.insertRecentSearch(searchText!)
+            }
         }
         return true
     }    
