@@ -14,8 +14,6 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         didSet {
             scrollView.contentSize = imageView.frame.size
             scrollView.delegate = self
-            scrollView.minimumZoomScale = 0.5
-            scrollView.maximumZoomScale = 3.0
         }
     }
     private var imageView = UIImageView()
@@ -26,9 +24,9 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         set {
             imageView.image = newValue
             imageView.sizeToFit()
-            scrollView?.zoomScale = zoomScaleToFit()
             scrollView?.contentSize = imageView.frame.size
-            scrollView?.scrollRectToVisible(visibleRect(), animated: false)
+            scrollView?.setZoomScale(scrollViewZoomScale, animated: false)
+            scrollView?.setContentOffset(scrollViewcontentOffsetSize, animated: false)
             spinner?.stopAnimating()
         }
     }
@@ -61,29 +59,38 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    private func visibleRect() -> CGRect {
-        var x: CGFloat = 0
-        var y: CGFloat = 0
-        // view.center.x = view.frame.width / 2
-        // view.center.y = view.frame.height / 2
-        if scrollView?.contentSize.width > view.frame.width {
-            x = (scrollView?.contentSize.width)! / 2 - view.center.x
-        } else {
-            y = (scrollView?.contentSize.height)! / 2 - view.center.y
+    private var scrollViewcontentOffsetSize: CGPoint {
+        if scrollView != nil {
+            var x = scrollView.bounds.origin.x
+            var y = scrollView.bounds.origin.y
+            
+            if scrollView.contentSize.width > scrollView.frame.width {
+                x = (scrollView.contentSize.width - scrollView.frame.width) / 2
+            } else {
+                y = (scrollView.contentSize.height - scrollView.frame.height) / 2
+            }
+            return CGPointMake(x, y)
         }
-        return CGRectMake(x, y, view.frame.width, view.frame.height)
+        return CGPointZero
     }
     
-    private func zoomScaleToFit() -> CGFloat {
-        if let aspectRatio = aspectRatio, imageSize = image?.size {
-            if aspectRatio > Double(scrollView.frame.width / scrollView.frame.height) {
-                return (scrollView.frame.height - topLayoutGuide.length) / imageSize.height
+    private var scrollViewZoomScale: CGFloat {
+        if let scrollView = scrollView, aspectRatio = aspectRatio {
+            
+            let zoomToWidth = scrollView.frame.width / scrollView.contentSize.width
+            let zoomToHeight = (scrollView.frame.height - topLayoutGuide.length - bottomLayoutGuide.length) / scrollView.contentSize.height
+            
+            if aspectRatio < Double(scrollView.frame.width / scrollView.frame.height) {
+                scrollView.minimumZoomScale = zoomToHeight
+                scrollView.maximumZoomScale = zoomToWidth * 2
+                return zoomToWidth
             } else {
-                return scrollView.frame.width / imageSize.width
+                scrollView.minimumZoomScale = zoomToWidth
+                scrollView.maximumZoomScale = zoomToHeight * 2
+                return zoomToHeight
             }
-        } else {
-            return 1.0
         }
+        return 1
     }
     
     // MARK: - View Controller Lifecycle
@@ -105,5 +112,4 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return imageView
     }
-
 }

@@ -74,7 +74,7 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }    
     
-    var searchText: String? = "#swift" {
+    var searchText: String? = "#art" {
         didSet {
             lastSuccessfulRequest = nil
             searchTextField?.text = searchText
