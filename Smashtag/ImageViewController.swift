@@ -75,10 +75,10 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private var scrollViewZoomScale: CGFloat {
-        if let scrollView = scrollView, aspectRatio = aspectRatio {
+        if let scrollView = scrollView, aspectRatio = aspectRatio, image = image {
             
-            let zoomToWidth = scrollView.frame.width / scrollView.contentSize.width
-            let zoomToHeight = (scrollView.frame.height - topLayoutGuide.length - bottomLayoutGuide.length) / scrollView.contentSize.height
+            let zoomToWidth = scrollView.frame.width / image.size.width
+            let zoomToHeight = (scrollView.frame.height - topLayoutGuide.length - bottomLayoutGuide.length) / image.size.height
             
             if aspectRatio < Double(scrollView.frame.width / scrollView.frame.height) {
                 scrollView.minimumZoomScale = zoomToHeight
@@ -112,4 +112,17 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return imageView
     }
+    
+    // MARK: - Device Rotation
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        
+        coordinator.animateAlongsideTransition(nil) { context in
+            self.scrollView.setZoomScale(self.scrollViewZoomScale, animated: false)
+            self.scrollView.setContentOffset(self.scrollViewcontentOffsetSize, animated: false)
+        }
+        
+    }
+    
+    
 }

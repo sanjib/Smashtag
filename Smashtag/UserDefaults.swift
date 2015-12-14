@@ -33,9 +33,7 @@ class UserDefaults {
         set {
             defaults.setObject(newValue, forKey: Constants.RecentSearchesKey)
             defaults.synchronize()
-            print("syncd")
         }
-
     }
     
     var allRecentSearches: [String] {
@@ -57,7 +55,6 @@ class UserDefaults {
             // it's enough to remove the first match, since we ensure only unique
             // searches are saved (matches will never contain more than 1 item)
             if let indexToRemove = recentSearches.indexOf(matches.first!) {
-                print(indexToRemove)
                 recentSearches.removeAtIndex(indexToRemove)
             }
         }
