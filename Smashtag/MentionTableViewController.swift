@@ -178,7 +178,7 @@ class MentionTableViewController: UITableViewController {
                 if let tvc = segue.destinationViewController as? TweetTableViewController {
                     if let indexPath = tableView.indexPathForSelectedRow {
                         let mention = mentions[indexPath.section][indexPath.row]
-                        tvc.searchText = mention.indexedKeyword?.keyword
+                        tvc.twitterRequestFetcher.searchText = mention.indexedKeyword?.keyword
                     }
                 }
             default: break

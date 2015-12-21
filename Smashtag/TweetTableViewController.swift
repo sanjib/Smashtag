@@ -11,18 +11,7 @@ import UIKit
 class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     var tweets = [[Tweet]]()
-    var lastSuccessfulRequest: TwitterRequest?
-    var nextRequestToAttempt: TwitterRequest? {
-        if lastSuccessfulRequest == nil {
-            if searchText != nil {
-                return TwitterRequest(search: searchText!, count: 100)
-            } else {
-                return nil
-            }
-        } else {
-            return lastSuccessfulRequest!.requestForNewer
-        }
-    }
+    let twitterRequestFetcher = TwitterRequestFetcher()
     
     private struct Storyboard {
         static let CellReuseIdentifier = "Tweet"
@@ -50,48 +39,36 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func refresh(sender: UIRefreshControl?) {
-        if searchText != nil {
-            if let request = nextRequestToAttempt {
-                request.fetchTweets { (newTweets) -> Void in
-                    dispatch_async(dispatch_get_main_queue()) { () -> Void in
-                        if newTweets.count > 0 {
-                            self.lastSuccessfulRequest = request
-                            self.tweets.insert(newTweets, atIndex: 0)
-                            self.tableView.reloadData()
-                        }
-                        sender?.endRefreshing()
-                    }
+        if twitterRequestFetcher.searchText != nil {
+            twitterRequestFetcher.fetchRequest { tweets in
+                if tweets.count > 0 {
+                    self.tweets.insert(tweets, atIndex: 0)
+                    self.tableView.reloadData()
                 }
+                sender?.endRefreshing()
             }
         } else {
             sender?.endRefreshing()
-        }
-    }    
-    
-    var searchText: String? = UserDefaults.sharedInstance.latestRecentSearch {
-        didSet {
-            lastSuccessfulRequest = nil
-            searchTextField?.text = searchText
-            tweets.removeAll()
-            tableView.reloadData()
-            refresh()
         }
     }
     
     @IBOutlet weak var searchTextField: UITextField! {
         didSet {
             searchTextField.delegate = self
-            searchTextField.text = searchText
+            searchTextField.text = twitterRequestFetcher.searchText
         }
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == searchTextField {
             textField.resignFirstResponder()
-            searchText = textField.text
-            if searchText != nil {
-                UserDefaults.sharedInstance.insertRecentSearch(searchText!)
+            twitterRequestFetcher.searchText = textField.text
+            if twitterRequestFetcher.searchText != nil {
+                UserDefaults.sharedInstance.insertRecentSearch(twitterRequestFetcher.searchText!)
             }
+            tweets.removeAll()
+            tableView.reloadData()
+            refresh()
         }
         return true
     }    
@@ -130,7 +107,5 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
             }
         }
     }
-    
-    
 
 }

@@ -61,7 +61,7 @@ class RecentTableViewController: UITableViewController {
         if segue.identifier == Storyboard.SearchTweetsSegue {
             if let tvc = segue.destinationViewController as? TweetTableViewController {
                 if let indexPath = tableView.indexPathForSelectedRow {
-                    tvc.searchText = UserDefaults.sharedInstance.allRecentSearches[indexPath.row]
+                    tvc.twitterRequestFetcher.searchText = UserDefaults.sharedInstance.allRecentSearches[indexPath.row]
                 }
             }
         }

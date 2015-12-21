@@ -13,13 +13,20 @@ class TweetCollectionViewController: UICollectionViewController {
         static let TweetImageCellIdentifier = "Tweet Image Cell"
     }
     
-    var tweetImages = [MediaItem]()
+    private let refreshControl = UIRefreshControl()
+    
+    func refresh(sender: UIRefreshControl) {
+        print("refresh collection view: \(sender)")
+        refreshControl.endRefreshing()
+    }
     
     // MARK: - View Controller Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        collectionView?.alwaysBounceVertical = true
+        collectionView?.addSubview(refreshControl)
     }
 
     // MARK: UICollectionViewDataSource
@@ -29,13 +36,14 @@ class TweetCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tweetImages.count
+        return 1
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Storyboard.TweetImageCellIdentifier, forIndexPath: indexPath) as! TweetCollectionViewCell
     
         // Configure the cell
+        cell.imageView.image = UIImage(named: "clock")
     
         return cell
     }

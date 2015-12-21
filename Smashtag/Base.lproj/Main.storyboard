@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fCb-dF-mHo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="fCb-dF-mHo">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -199,6 +199,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Pay-AH-ONn">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zRX-Fi-eGN">
                             <size key="itemSize" width="145" height="145"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -239,7 +240,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eRa-KY-ifx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1903" y="1607"/>
+            <point key="canvasLocation" x="1903" y="841"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="gfn-ye-0cL">
@@ -297,11 +298,11 @@
             </objects>
             <point key="canvasLocation" x="4106" y="142"/>
         </scene>
-        <!--Search-->
+        <!--Tweets-->
         <scene sceneID="1Mw-yR-DT0">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fyW-s6-Wxk" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Search" image="search" id="Y2h-q3-NfN"/>
+                    <tabBarItem key="tabBarItem" title="Tweets" image="twitter" id="Y2h-q3-NfN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Gqw-v1-rGO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -336,7 +337,7 @@
                                             <rect key="frame" x="15" y="0.0" width="550" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -355,7 +356,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JGc-X6-Jmf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1903" y="841"/>
+            <point key="canvasLocation" x="1903" y="1621"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="3jj-ve-jld">
@@ -368,8 +369,8 @@
                     </tabBar>
                     <connections>
                         <segue destination="fyW-s6-Wxk" kind="relationship" relationship="viewControllers" id="cN2-qt-Yx0"/>
-                        <segue destination="dXv-3c-x9A" kind="relationship" relationship="viewControllers" id="YxV-vB-ECi"/>
                         <segue destination="nCP-f1-XVC" kind="relationship" relationship="viewControllers" id="k0V-j4-HJR"/>
+                        <segue destination="dXv-3c-x9A" kind="relationship" relationship="viewControllers" id="YxV-vB-ECi"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cOL-J6-Dy9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -393,13 +394,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7kk-DD-HHX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1185" y="841"/>
+            <point key="canvasLocation" x="1185" y="1621"/>
         </scene>
-        <!--Item-->
+        <!--Images-->
         <scene sceneID="lZh-XH-n74">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nCP-f1-XVC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="hpv-SV-PP6"/>
+                    <tabBarItem key="tabBarItem" title="Images" image="image_file" id="hpv-SV-PP6"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="e5Q-pk-cik">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -412,14 +413,15 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4LD-0N-u2C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1185" y="1607"/>
+            <point key="canvasLocation" x="1185" y="841"/>
         </scene>
     </scenes>
     <resources>
         <image name="clock" width="25" height="25"/>
-        <image name="search" width="25" height="25"/>
+        <image name="image_file" width="25" height="25"/>
+        <image name="twitter" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="oKF-Hn-8eO"/>
+        <segue reference="0c3-Eh-RIl"/>
     </inferredMetricsTieBreakers>
 </document>
