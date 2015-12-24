@@ -111,11 +111,11 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="220"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mCr-5c-8HO" id="ZKg-Wm-8Lb">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="219.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="220"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="glr-aG-JJI">
-                                            <rect key="frame" x="8" y="8" width="584" height="203.5"/>
+                                            <rect key="frame" x="8" y="8" width="584" height="204"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="200" id="bc5-se-hCU"/>
                                             </constraints>
@@ -125,9 +125,14 @@
                                                 </mask>
                                             </variation>
                                         </imageView>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="nyM-mG-Pmy">
+                                            <rect key="frame" x="290" y="100" width="20" height="20"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="nyM-mG-Pmy" firstAttribute="centerY" secondItem="glr-aG-JJI" secondAttribute="centerY" id="4o2-OJ-0Kp"/>
                                         <constraint firstItem="glr-aG-JJI" firstAttribute="trailing" secondItem="ZKg-Wm-8Lb" secondAttribute="trailingMargin" id="7QI-Ec-G2O"/>
+                                        <constraint firstItem="nyM-mG-Pmy" firstAttribute="centerX" secondItem="glr-aG-JJI" secondAttribute="centerX" id="VcF-6U-P5u"/>
                                         <constraint firstItem="glr-aG-JJI" firstAttribute="centerY" secondItem="ZKg-Wm-8Lb" secondAttribute="centerY" id="dVL-3k-FnX"/>
                                         <constraint firstItem="glr-aG-JJI" firstAttribute="top" secondItem="ZKg-Wm-8Lb" secondAttribute="topMargin" id="eYZ-3u-6s9"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="glr-aG-JJI" secondAttribute="bottom" id="jlJ-Qy-ESo"/>
@@ -142,6 +147,7 @@
                                     </variation>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="activityIndicator" destination="nyM-mG-Pmy" id="h1p-iJ-AMJ"/>
                                     <outlet property="mentionImageView" destination="glr-aG-JJI" id="drn-q3-i40"/>
                                     <segue destination="uKo-k7-XjL" kind="show" identifier="Show Image" id="kzs-kq-0oh"/>
                                 </connections>
@@ -191,56 +197,6 @@
                 <exit id="I7d-aA-13w" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3367" y="142"/>
-        </scene>
-        <!--Tweet Collection View Controller-->
-        <scene sceneID="Yn7-fq-idc">
-            <objects>
-                <collectionViewController id="1Zq-Yg-NQL" customClass="TweetCollectionViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Pay-AH-ONn">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="zRX-Fi-eGN">
-                            <size key="itemSize" width="145" height="145"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Tweet Image Cell" id="CaK-mJ-4zh" customClass="TweetCollectionViewCell" customModule="Smashtag" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="145" height="145"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="145" height="145"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Abm-8U-yXw">
-                                            <rect key="frame" x="0.0" y="0.0" width="145" height="145"/>
-                                        </imageView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="Abm-8U-yXw" secondAttribute="bottom" id="2fd-5b-j7D"/>
-                                    <constraint firstAttribute="trailing" secondItem="Abm-8U-yXw" secondAttribute="trailing" id="7Ns-qQ-Rz1"/>
-                                    <constraint firstItem="Abm-8U-yXw" firstAttribute="leading" secondItem="CaK-mJ-4zh" secondAttribute="leading" id="far-wt-yoK"/>
-                                    <constraint firstItem="Abm-8U-yXw" firstAttribute="top" secondItem="CaK-mJ-4zh" secondAttribute="top" id="toK-ul-LqM"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="imageView" destination="Abm-8U-yXw" id="Dvw-34-7e4"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="1Zq-Yg-NQL" id="ZIf-kc-zIc"/>
-                            <outlet property="delegate" destination="1Zq-Yg-NQL" id="mdD-aB-M4o"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" id="RXx-Vq-jIy"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eRa-KY-ifx" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1903" y="841"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="gfn-ye-0cL">
@@ -408,12 +364,92 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="1Zq-Yg-NQL" kind="relationship" relationship="rootViewController" id="NFT-It-A3p"/>
+                        <segue destination="Wg3-cm-XWc" kind="relationship" relationship="rootViewController" id="527-qL-Lvl"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4LD-0N-u2C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1185" y="841"/>
+        </scene>
+        <!--Tweet Collection View Controller-->
+        <scene sceneID="gKV-hf-O65">
+            <objects>
+                <viewController id="Wg3-cm-XWc" customClass="TweetCollectionViewController" customModule="Smashtag" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gZq-zR-qnm"/>
+                        <viewControllerLayoutGuide type="bottom" id="FCD-fN-cVC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UDM-ld-zI1">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Twitter Search Query" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n0N-vs-dlj">
+                                <rect key="frame" x="0.0" y="64" width="600" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9Sg-fa-XIt">
+                                <rect key="frame" x="0.0" y="94" width="600" height="457"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="b2H-cp-niw">
+                                    <size key="itemSize" width="147" height="147"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Tweet Image Cell" id="ZaC-ti-dKE" customClass="TweetCollectionViewCell" customModule="Smashtag" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="147" height="147"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="147" height="147"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VVQ-hP-h0d">
+                                                    <rect key="frame" x="0.0" y="0.0" width="147" height="147"/>
+                                                </imageView>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="2dz-94-4jv">
+                                                    <rect key="frame" x="63" y="64" width="20" height="20"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="2dz-94-4jv" firstAttribute="centerY" secondItem="VVQ-hP-h0d" secondAttribute="centerY" id="4xK-4C-ceg"/>
+                                            <constraint firstItem="VVQ-hP-h0d" firstAttribute="top" secondItem="ZaC-ti-dKE" secondAttribute="top" id="BzI-Bb-N6G"/>
+                                            <constraint firstAttribute="trailing" secondItem="VVQ-hP-h0d" secondAttribute="trailing" id="eNd-o8-xPb"/>
+                                            <constraint firstItem="2dz-94-4jv" firstAttribute="centerX" secondItem="VVQ-hP-h0d" secondAttribute="centerX" id="mfF-aQ-2by"/>
+                                            <constraint firstAttribute="bottom" secondItem="VVQ-hP-h0d" secondAttribute="bottom" id="wBd-8H-nsh"/>
+                                            <constraint firstItem="VVQ-hP-h0d" firstAttribute="leading" secondItem="ZaC-ti-dKE" secondAttribute="leading" id="xwd-Pl-bSn"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="activityIndicator" destination="2dz-94-4jv" id="T2u-y9-VCT"/>
+                                            <outlet property="imageView" destination="VVQ-hP-h0d" id="iPB-g5-qj3"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="9Sg-fa-XIt" firstAttribute="top" secondItem="n0N-vs-dlj" secondAttribute="bottom" id="A0z-3V-f5q"/>
+                            <constraint firstItem="n0N-vs-dlj" firstAttribute="trailing" secondItem="9Sg-fa-XIt" secondAttribute="trailing" id="DhB-UW-hoL"/>
+                            <constraint firstAttribute="trailing" secondItem="n0N-vs-dlj" secondAttribute="trailing" id="EPf-41-XCU"/>
+                            <constraint firstItem="n0N-vs-dlj" firstAttribute="top" secondItem="gZq-zR-qnm" secondAttribute="bottom" id="My7-sg-3s1"/>
+                            <constraint firstItem="n0N-vs-dlj" firstAttribute="leading" secondItem="9Sg-fa-XIt" secondAttribute="leading" id="U8s-nH-skc"/>
+                            <constraint firstItem="9Sg-fa-XIt" firstAttribute="bottom" secondItem="FCD-fN-cVC" secondAttribute="top" id="ntB-Ha-KZH"/>
+                            <constraint firstItem="n0N-vs-dlj" firstAttribute="leading" secondItem="UDM-ld-zI1" secondAttribute="leading" id="sUs-vj-pIb"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="wqI-Bh-68f"/>
+                    <connections>
+                        <outlet property="collectionView" destination="9Sg-fa-XIt" id="hCQ-1T-9XX"/>
+                        <outlet property="searchTextField" destination="n0N-vs-dlj" id="jFE-bQ-nSd"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QXa-R1-JCG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1903" y="841"/>
         </scene>
     </scenes>
     <resources>
@@ -422,6 +458,6 @@
         <image name="twitter" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0c3-Eh-RIl"/>
+        <segue reference="oKF-Hn-8eO"/>
     </inferredMetricsTieBreakers>
 </document>

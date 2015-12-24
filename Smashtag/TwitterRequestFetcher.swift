@@ -18,8 +18,6 @@ class TwitterRequestFetcher {
     private var lastSuccessfulRequest: TwitterRequest?
     private var nextRequestToAttempt: TwitterRequest? {
         if lastSuccessfulRequest == nil {
-            print("searchText: \(searchText)")
-            
             if searchText != nil {
                 return TwitterRequest(search: searchText!, count: 100)
             } else {
