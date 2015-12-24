@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol TweetCollectionViewDataSource: class {
+    func getCachedImage(sender: TweetCollectionViewCell) -> UIImage?
+    func setCachedImage(sender: TweetCollectionViewCell)
+}
+
 class TweetCollectionViewCell: UICollectionViewCell {
+    weak var dataSource: TweetCollectionViewDataSource?
     
     var mediaItem: MediaItem? {
         didSet {
@@ -22,6 +28,7 @@ class TweetCollectionViewCell: UICollectionViewCell {
     private var image: UIImage? {
         didSet {
             imageView.image = image
+            dataSource?.setCachedImage(self)
             activityIndicator?.stopAnimating()
         }
     }
@@ -30,13 +37,17 @@ class TweetCollectionViewCell: UICollectionViewCell {
         imageView?.image = nil
         
         if let mediaItem = mediaItem {
-            let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
-            activityIndicator.startAnimating()
-            dispatch_async(dispatch_get_global_queue(qos, 0)) {
-                if let imageData = NSData(contentsOfURL: mediaItem.url) {
-                    dispatch_async(dispatch_get_main_queue()) {
-                        if mediaItem.url == self.mediaItem?.url {
-                            self.image = UIImage(data: imageData)
+            if let image = dataSource?.getCachedImage(self) {
+                self.image = image
+            } else {
+                let qos = Int(QOS_CLASS_USER_INITIATED.rawValue)
+                activityIndicator.startAnimating()
+                dispatch_async(dispatch_get_global_queue(qos, 0)) {
+                    if let imageData = NSData(contentsOfURL: mediaItem.url) {
+                        dispatch_async(dispatch_get_main_queue()) {
+                            if mediaItem.url == self.mediaItem?.url {
+                                self.image = UIImage(data: imageData)
+                            }
                         }
                     }
                 }

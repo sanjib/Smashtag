@@ -8,12 +8,27 @@
 
 import UIKit
 
-class TweetCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
+class TweetCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, TweetCollectionViewDataSource {
 
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             collectionView.delegate = self
             collectionView.dataSource = self
+        }
+    }
+    
+    private var cache = NSCache()
+    func getCachedImage(sender: TweetCollectionViewCell) -> UIImage? {
+        if let key = sender.mediaItem?.url, image = cache.objectForKey(key) as? UIImage {
+            return image
+        }
+        return nil
+    }
+    
+    func setCachedImage(sender: TweetCollectionViewCell) {
+        if let key = sender.mediaItem?.url, image = sender.imageView?.image, data = UIImageJPEGRepresentation(image, 1.0) {
+            let cost = data.length/1024
+            cache.setObject(image, forKey: key, cost: cost)
         }
     }
 
@@ -38,7 +53,6 @@ class TweetCollectionViewController: UIViewController, UICollectionViewDelegate,
         refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
         collectionView?.alwaysBounceVertical = true
         collectionView?.addSubview(refreshControl)
-        
         
         refresh()
     }
@@ -106,6 +120,8 @@ class TweetCollectionViewController: UIViewController, UICollectionViewDelegate,
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Storyboard.TweetImageCellIdentifier, forIndexPath: indexPath) as! TweetCollectionViewCell
+        
+        cell.dataSource = self
         
         cell.mediaItem = mediaItems[indexPath.row]
         return cell
