@@ -36,7 +36,6 @@ class MentionImageTableViewCell: UITableViewCell {
                 if let imageData = NSData(contentsOfURL: mediaItem.url) {
                     dispatch_async(dispatch_get_main_queue()) {
                         if mediaItem.url == self.mediaItem?.url {
-//                            self.mentionImageView.image = UIImage(data: imageData)
                             self.mentionImage = UIImage(data: imageData)
                         }
                     }

@@ -187,7 +187,15 @@ class MentionTableViewController: UITableViewController {
                 if let tvc = segue.destinationViewController as? TweetTableViewController {
                     if let indexPath = tableView.indexPathForSelectedRow {
                         let mention = mentions[indexPath.section][indexPath.row]
-                        tvc.setNewSearchRequest(mention.description)
+                        switch mention {
+                        case .UserMention:
+                            let userScreenName = mention.description.stringByReplacingOccurrencesOfString("@", withString: "")
+                            let userAtName = mention.description
+                            tvc.setNewSearchRequest("from:\(userScreenName) OR \(userAtName)")
+                        default:
+                            tvc.setNewSearchRequest(mention.description)
+                        }
+                        
                     }
                 }
             default: break
