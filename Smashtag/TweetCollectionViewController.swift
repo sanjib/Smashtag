@@ -17,7 +17,22 @@ class TweetCollectionViewController: UIViewController, UICollectionViewDelegate,
         }
     }
     
+    var tweets = [[Tweet]]()
+    var mediaItems = [MediaItem]()
+    let twitterRequestFetcher = TwitterRequestFetcher()
+    
+    private let itemsPerRow: CGFloat = 3
+    
+    private struct Storyboard {
+        static let TweetImageCellIdentifier = "Tweet Image Cell"
+    }
+    
+    private let refreshControl = UIRefreshControl()
+    
+    // MARK: - Cache
+    
     private var cache = NSCache()
+    
     func getCachedImage(sender: TweetCollectionViewCell) -> UIImage? {
         if let key = sender.mediaItem?.url, image = cache.objectForKey(key) as? UIImage {
             return image
@@ -31,18 +46,6 @@ class TweetCollectionViewController: UIViewController, UICollectionViewDelegate,
             cache.setObject(image, forKey: key, cost: cost)
         }
     }
-
-    var tweets = [[Tweet]]()
-    var mediaItems = [MediaItem]()
-    let twitterRequestFetcher = TwitterRequestFetcher()
-    
-    private let itemsPerRow: CGFloat = 3
-    
-    private struct Storyboard {
-        static let TweetImageCellIdentifier = "Tweet Image Cell"
-    }
-    
-    private let refreshControl = UIRefreshControl()
     
     // MARK: - View Controller Lifecycle
     
@@ -120,9 +123,7 @@ class TweetCollectionViewController: UIViewController, UICollectionViewDelegate,
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(Storyboard.TweetImageCellIdentifier, forIndexPath: indexPath) as! TweetCollectionViewCell
-        
         cell.dataSource = self
-        
         cell.mediaItem = mediaItems[indexPath.row]
         return cell
     }

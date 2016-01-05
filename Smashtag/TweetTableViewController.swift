@@ -11,7 +11,7 @@ import UIKit
 class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     
     var tweets = [[Tweet]]()
-    let twitterRequestFetcher = TwitterRequestFetcher()
+    let twitterRequestFetcher = TwitterRequestFetcher()    
     
     private struct Storyboard {
         static let CellReuseIdentifier = "Tweet"
@@ -62,16 +62,21 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == searchTextField {
             textField.resignFirstResponder()
-            twitterRequestFetcher.searchText = textField.text
-            if twitterRequestFetcher.searchText != nil {
-                UserDefaults.sharedInstance.insertRecentSearch(twitterRequestFetcher.searchText!)
-            }
-            tweets.removeAll()
-            tableView.reloadData()
-            refresh()
+            setNewSearchRequest(textField.text)
         }
         return true
-    }    
+    }
+    
+    func setNewSearchRequest(searchText: String?) {
+        searchTextField.text = searchText
+        twitterRequestFetcher.searchText = searchText
+        if twitterRequestFetcher.searchText != nil {
+            UserDefaults.sharedInstance.insertRecentSearch(twitterRequestFetcher.searchText!)
+        }
+        tweets.removeAll()
+        tableView.reloadData()
+        refresh()
+    }
 
     // MARK: - UITableViewDataSource
 

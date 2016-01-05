@@ -13,7 +13,10 @@ class MentionTableViewController: UITableViewController {
     var tweet: Tweet? {
         didSet {
             if let tweet = tweet {
-                title = tweet.user.name
+//                title = tweet.user.name
+                title = "\(tweet.user)"
+                
+                // Images
                 if tweet.media.count > 0 {
                     var mediaItems = [Mention]()
                     for mediaItem in tweet.media {
@@ -21,6 +24,8 @@ class MentionTableViewController: UITableViewController {
                     }
                     addMentions(mediaItems)
                 }
+                
+                // Hashtags
                 if tweet.hashtags.count > 0 {
                     var hashtags = [Mention]()
                     for hashtag in tweet.hashtags {
@@ -28,6 +33,8 @@ class MentionTableViewController: UITableViewController {
                     }
                     addMentions(hashtags)
                 }
+                
+                // URLs
                 if tweet.urls.count > 0 {
                     var urls = [Mention]()
                     for url in tweet.urls {
@@ -35,6 +42,9 @@ class MentionTableViewController: UITableViewController {
                     }
                     addMentions(urls)
                 }
+                
+                // Users
+                
                 if tweet.userMentions.count > 0 {
                     var userMentions = [Mention]()
                     for userMention in tweet.userMentions {
@@ -42,6 +52,7 @@ class MentionTableViewController: UITableViewController {
                     }
                     addMentions(userMentions)
                 }
+                
             }
         }
     }
@@ -178,7 +189,7 @@ class MentionTableViewController: UITableViewController {
                 if let tvc = segue.destinationViewController as? TweetTableViewController {
                     if let indexPath = tableView.indexPathForSelectedRow {
                         let mention = mentions[indexPath.section][indexPath.row]
-                        tvc.twitterRequestFetcher.searchText = mention.indexedKeyword?.keyword
+                        tvc.setNewSearchRequest(mention.indexedKeyword?.keyword)
                     }
                 }
             default: break
