@@ -35,6 +35,8 @@ class TwitterRequestFetcher {
                     if newTweets.count > 0 {
                         tweets(newTweets)
                         self.lastSuccessfulRequest = request
+                    } else {
+                        tweets([])
                     }
                 }
             }
