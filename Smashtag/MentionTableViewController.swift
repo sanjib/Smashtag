@@ -13,8 +13,7 @@ class MentionTableViewController: UITableViewController {
     var tweet: Tweet? {
         didSet {
             if let tweet = tweet {
-//                title = tweet.user.name
-                title = "\(tweet.user)"
+                title = tweet.user.name
                 
                 // Images
                 if tweet.media.count > 0 {
@@ -29,7 +28,7 @@ class MentionTableViewController: UITableViewController {
                 if tweet.hashtags.count > 0 {
                     var hashtags = [Mention]()
                     for hashtag in tweet.hashtags {
-                        hashtags.append(Mention.Hashtag(hashtag))
+                        hashtags.append(Mention.Hashtag(hashtag.keyword))
                     }
                     addMentions(hashtags)
                 }
@@ -38,21 +37,20 @@ class MentionTableViewController: UITableViewController {
                 if tweet.urls.count > 0 {
                     var urls = [Mention]()
                     for url in tweet.urls {
-                        urls.append(Mention.URL(url))
+                        urls.append(Mention.URL(url.keyword))
                     }
                     addMentions(urls)
                 }
                 
                 // Users
-                
+                var userMentions = [Mention]()
+                userMentions.append(Mention.UserMention("@\(tweet.user.screenName)"))
                 if tweet.userMentions.count > 0 {
-                    var userMentions = [Mention]()
                     for userMention in tweet.userMentions {
-                        userMentions.append(Mention.UserMention(userMention))
+                        userMentions.append(Mention.UserMention(userMention.keyword))
                     }
-                    addMentions(userMentions)
                 }
-                
+                addMentions(userMentions)
             }
         }
     }
@@ -64,14 +62,14 @@ class MentionTableViewController: UITableViewController {
     
     private enum Mention {
         case Image(MediaItem)
-        case Hashtag(Tweet.IndexedKeyword)
-        case URL(Tweet.IndexedKeyword)
-        case UserMention(Tweet.IndexedKeyword)
+        case Hashtag(String)
+        case URL(String)
+        case UserMention(String)
         
-        var indexedKeyword: Tweet.IndexedKeyword? {
+        var description: String {
             switch self {
-            case .Image(_):
-                return nil
+            case .Image(let mediaItem):
+                return mediaItem.url.absoluteString
             case .Hashtag(let hashtag):
                 return hashtag
             case .URL(let url):
@@ -81,7 +79,7 @@ class MentionTableViewController: UITableViewController {
             }
         }
         
-        var description: String {
+        var type: String {
             switch self {
             case .Image(_):
                 return "Images"
@@ -135,7 +133,7 @@ class MentionTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return mentions[section].first!.description
+        return mentions[section].first!.type
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -148,7 +146,7 @@ class MentionTableViewController: UITableViewController {
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier(Storyboard.TextCellIdentifier, forIndexPath: indexPath) as! MentionTextTableViewCell
-            cell.mention = mention.indexedKeyword
+            cell.mention = mention.description
             return cell
         }
     }
@@ -160,7 +158,7 @@ class MentionTableViewController: UITableViewController {
             let mention = mentions[indexPath.section][indexPath.row]
             switch mention {
             case .URL(let urlString):
-                if let url = NSURL(string: urlString.keyword) {
+                if let url = NSURL(string: urlString) {
                     UIApplication.sharedApplication().openURL(url)
                 }
                 return false
@@ -189,7 +187,7 @@ class MentionTableViewController: UITableViewController {
                 if let tvc = segue.destinationViewController as? TweetTableViewController {
                     if let indexPath = tableView.indexPathForSelectedRow {
                         let mention = mentions[indexPath.section][indexPath.row]
-                        tvc.setNewSearchRequest(mention.indexedKeyword?.keyword)
+                        tvc.setNewSearchRequest(mention.description)
                     }
                 }
             default: break

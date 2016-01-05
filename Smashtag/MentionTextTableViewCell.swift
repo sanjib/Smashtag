@@ -10,16 +10,22 @@ import UIKit
 
 class MentionTextTableViewCell: UITableViewCell {
 
-    var mention: Tweet.IndexedKeyword? {
+//    var mention: Tweet.IndexedKeyword? {
+//        didSet {
+//            updateUI()
+//        }
+//    }
+    var mention: String? {
         didSet {
             updateUI()
         }
     }
+
     
     @IBOutlet weak var mentionKeyword: UILabel!
     
     private func updateUI() {
-        mentionKeyword?.text = mention?.keyword
+        mentionKeyword?.text = mention
     }
     
 }
