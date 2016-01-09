@@ -131,7 +131,9 @@ class TweetCollectionViewController: UIViewController, UICollectionViewDelegate,
             if twitterRequestFetcher.searchText != nil {
                 UserDefaults.sharedInstance.insertRecentSearch(twitterRequestFetcher.searchText!)
             }
+            cache.removeAllObjects()
             tweets.removeAll()
+            mediaItems.removeAll()
             collectionView?.reloadData()
             refresh()
         }
