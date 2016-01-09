@@ -17,17 +17,44 @@ class TweetCollectionViewController: UIViewController, UICollectionViewDelegate,
         }
     }
     
-    var tweets = [[Tweet]]()
+    var tweets = [Tweet]()
     var mediaItems = [MediaItem]()
     let twitterRequestFetcher = TwitterRequestFetcher()
     
-    private let itemsPerRow: CGFloat = 3
-    
     private struct Storyboard {
         static let TweetImageCellIdentifier = "Tweet Image Cell"
+        static let TweetSegueIdentifier     = "Show Tweet"
     }
     
     private let refreshControl = UIRefreshControl()
+    
+    // MARK: - Items per Row
+    
+    private var itemsPerRow: CGFloat = 3
+    private let maxItemsPerRow: CGFloat = 10
+    private let minItemsPerRow: CGFloat = 1
+    @IBAction func changeItemsPerRow(gesture: UIPinchGestureRecognizer) {
+        switch gesture.state {
+        case .Changed:
+            itemsPerRow = scaleToItemsPerRow(gesture.scale)
+            collectionView.collectionViewLayout.invalidateLayout()
+            gesture.scale = 1
+        case .Ended:
+            itemsPerRow = floor(itemsPerRow)
+            collectionView.collectionViewLayout.invalidateLayout()
+        default: break
+        }
+    }
+    private func scaleToItemsPerRow(scale: CGFloat) -> CGFloat {
+        let possibleItemsPerRow = (itemsPerRow / (scale))
+        if possibleItemsPerRow > maxItemsPerRow {
+            return maxItemsPerRow
+        } else if possibleItemsPerRow < minItemsPerRow {
+            return minItemsPerRow
+        } else {
+            return possibleItemsPerRow
+        }
+    }
     
     // MARK: - Cache
     
@@ -75,7 +102,7 @@ class TweetCollectionViewController: UIViewController, UICollectionViewDelegate,
         if twitterRequestFetcher.searchText != nil {
             twitterRequestFetcher.fetchRequest { tweets in
                 if tweets.count > 0 {
-                    self.tweets.insert(tweets, atIndex: 0)
+                    self.tweets += tweets
                     for tweet in tweets {
                         for mediaItem in tweet.media {
                             self.mediaItems.insert(mediaItem, atIndex: 0)
@@ -128,6 +155,10 @@ class TweetCollectionViewController: UIViewController, UICollectionViewDelegate,
         return cell
     }
     
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier(Storyboard.TweetSegueIdentifier, sender: self)
+    }
+    
     // MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
@@ -146,7 +177,21 @@ class TweetCollectionViewController: UIViewController, UICollectionViewDelegate,
     // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
+        if segue.identifier == Storyboard.TweetSegueIdentifier {
+            if let indexPath = collectionView.indexPathsForSelectedItems()?.first {
+                let selectedMediaItem = mediaItems[indexPath.row]
+                tweetLoop: for tweet in tweets {
+                    for mediaItem in tweet.media {
+                        if mediaItem.url == selectedMediaItem.url {
+                            if let mtvc = segue.destinationViewController as? MentionTableViewController {
+                                mtvc.tweet = tweet
+                                break tweetLoop
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }

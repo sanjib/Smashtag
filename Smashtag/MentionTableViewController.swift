@@ -194,8 +194,7 @@ class MentionTableViewController: UITableViewController {
                             tvc.setNewSearchRequest("from:\(userScreenName) OR \(userAtName)")
                         default:
                             tvc.setNewSearchRequest(mention.description)
-                        }
-                        
+                        }                        
                     }
                 }
             default: break

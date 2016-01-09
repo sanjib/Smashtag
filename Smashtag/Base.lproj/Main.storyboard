@@ -431,6 +431,7 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="9Sg-fa-XIt" firstAttribute="top" secondItem="n0N-vs-dlj" secondAttribute="bottom" id="A0z-3V-f5q"/>
                             <constraint firstItem="n0N-vs-dlj" firstAttribute="trailing" secondItem="9Sg-fa-XIt" secondAttribute="trailing" id="DhB-UW-hoL"/>
@@ -440,14 +441,23 @@
                             <constraint firstItem="9Sg-fa-XIt" firstAttribute="bottom" secondItem="FCD-fN-cVC" secondAttribute="top" id="ntB-Ha-KZH"/>
                             <constraint firstItem="n0N-vs-dlj" firstAttribute="leading" secondItem="UDM-ld-zI1" secondAttribute="leading" id="sUs-vj-pIb"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="o5u-um-mcs" appends="YES" id="L7i-qv-huP"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="wqI-Bh-68f"/>
                     <connections>
                         <outlet property="collectionView" destination="9Sg-fa-XIt" id="hCQ-1T-9XX"/>
                         <outlet property="searchTextField" destination="n0N-vs-dlj" id="jFE-bQ-nSd"/>
+                        <segue destination="0ZR-r2-Fcu" kind="show" identifier="Show Tweet" id="oqT-i5-QDc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QXa-R1-JCG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="o5u-um-mcs">
+                    <connections>
+                        <action selector="changeItemsPerRow:" destination="Wg3-cm-XWc" id="wEQ-pm-QVF"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1903" y="841"/>
         </scene>
@@ -458,6 +468,7 @@
         <image name="twitter" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="oqT-i5-QDc"/>
         <segue reference="oKF-Hn-8eO"/>
     </inferredMetricsTieBreakers>
 </document>
