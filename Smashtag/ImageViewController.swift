@@ -124,5 +124,4 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
-    
 }

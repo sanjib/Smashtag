@@ -10,17 +10,11 @@ import UIKit
 
 class MentionTextTableViewCell: UITableViewCell {
 
-//    var mention: Tweet.IndexedKeyword? {
-//        didSet {
-//            updateUI()
-//        }
-//    }
     var mention: String? {
         didSet {
             updateUI()
         }
     }
-
     
     @IBOutlet weak var mentionKeyword: UILabel!
     
