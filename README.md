@@ -12,6 +12,12 @@ Smashtag is a Twitter based app that allows users to:
 - save 100 most recent queries in a Recent tab
 - browse Tweet images in Colllection View
 
+![](https://raw.githubusercontent.com/sanjibahmad/Smashtag/master/screenshots/01-tweets-table.jpg)
+![](https://raw.githubusercontent.com/sanjibahmad/Smashtag/master/screenshots/02-images-collection.jpg)
+![](https://raw.githubusercontent.com/sanjibahmad/Smashtag/master/screenshots/03-recent-tweets.jpg)
+![](https://raw.githubusercontent.com/sanjibahmad/Smashtag/master/screenshots/04-mentions.jpg)
+![](https://raw.githubusercontent.com/sanjibahmad/Smashtag/master/screenshots/05-image-details.jpg)
+
 All the 10 Required Tasks were completed. In addition the following Extra Credit items were implemented:
 
 - In the Users section of your new UITableViewController, list not only users mentioned in the Tweet, but also the user who posted the Tweet in the first place.
