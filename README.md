@@ -1,4 +1,4 @@
-# Smashtag
+# Smashtag: CS193P iOS Assignment, Stanford University
 
 This is the 4th assignment from the course "Developing iOS 8 Apps with Swift", Stanford University, CS193p, Winter 2015.
 
@@ -12,8 +12,8 @@ Smashtag is a Twitter based app that allows users to:
 - save 100 most recent queries in a Recent tab
 - browse Tweet images in Colllection View
 
-![](https://raw.githubusercontent.com/sanjibahmad/Smashtag/master/screenshots/01-tweets-table.jpg)
-![](https://raw.githubusercontent.com/sanjibahmad/Smashtag/master/screenshots/02-images-collection.jpg)
+![](https://raw.githubusercontent.com/sanjibahmad/Smashtag/master/screenshots/01-tweets-table-v02.png)
+![](https://raw.githubusercontent.com/sanjibahmad/Smashtag/master/screenshots/02-images-collection-v02.png)
 ![](https://raw.githubusercontent.com/sanjibahmad/Smashtag/master/screenshots/03-recent-tweets.jpg)
 ![](https://raw.githubusercontent.com/sanjibahmad/Smashtag/master/screenshots/04-mentions.jpg)
 ![](https://raw.githubusercontent.com/sanjibahmad/Smashtag/master/screenshots/05-image-details.jpg)
