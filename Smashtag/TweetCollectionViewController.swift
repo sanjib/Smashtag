@@ -124,6 +124,11 @@ class TweetCollectionViewController: UIViewController, UICollectionViewDelegate,
         }
     }
     
+    @IBAction func search() {
+        refreshControl.beginRefreshing()
+        textFieldShouldReturn(searchTextField)
+    }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == searchTextField {
             textField.resignFirstResponder()

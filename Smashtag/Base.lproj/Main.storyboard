@@ -14,15 +14,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <textField key="tableHeaderView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Twitter Search Query" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" id="wga-R6-WZT">
-                            <rect key="frame" x="0.0" y="64" width="600" height="30"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="LIs-MW-8A7">
+                            <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
-                        </textField>
+                            <subviews>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Twitter Search Query" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xiI-xp-mXS">
+                                    <rect key="frame" x="8" y="7" width="528" height="30"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZWN-FO-55U">
+                                    <rect key="frame" x="544" y="7" width="48" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="48" id="hQs-Hh-zg7"/>
+                                    </constraints>
+                                    <state key="normal" title="Search"/>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="hQs-Hh-zg7"/>
+                                        </mask>
+                                    </variation>
+                                    <connections>
+                                        <action selector="search" destination="RkT-Ed-xd5" eventType="touchUpInside" id="N1f-RY-Ik2"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="xiI-xp-mXS" firstAttribute="top" secondItem="ZWN-FO-55U" secondAttribute="top" id="Ace-Gu-xqw"/>
+                                <constraint firstItem="xiI-xp-mXS" firstAttribute="centerY" secondItem="LIs-MW-8A7" secondAttribute="centerY" id="MR8-re-vBV"/>
+                                <constraint firstItem="xiI-xp-mXS" firstAttribute="leading" secondItem="LIs-MW-8A7" secondAttribute="leadingMargin" id="Ofi-fh-940"/>
+                                <constraint firstItem="ZWN-FO-55U" firstAttribute="trailing" secondItem="LIs-MW-8A7" secondAttribute="trailingMargin" id="TlB-qf-boJ"/>
+                                <constraint firstItem="ZWN-FO-55U" firstAttribute="leading" secondItem="xiI-xp-mXS" secondAttribute="trailing" constant="8" symbolic="YES" id="qIj-n6-aTG"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Tweet" rowHeight="150" id="AB2-99-pvz" customClass="TweetTableViewCell" customModule="Smashtag" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="122" width="600" height="150"/>
+                                <rect key="frame" x="0.0" y="136" width="600" height="150"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AB2-99-pvz" id="OuU-pW-kwi">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="149.5"/>
@@ -91,7 +119,7 @@
                         </connections>
                     </refreshControl>
                     <connections>
-                        <outlet property="searchTextField" destination="wga-R6-WZT" id="Vjn-g4-GmY"/>
+                        <outlet property="searchTextField" destination="xiI-xp-mXS" id="ZsJ-NQ-o0L"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fPg-Ik-EuR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -383,13 +411,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Twitter Search Query" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n0N-vs-dlj">
-                                <rect key="frame" x="0.0" y="64" width="600" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zb5-Fm-Zms">
+                                <rect key="frame" x="0.0" y="64" width="600" height="44"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Twitter Search Query" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nqx-Gm-YVL">
+                                        <rect key="frame" x="8" y="7" width="528" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hHD-uc-DKZ">
+                                        <rect key="frame" x="544" y="7" width="48" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="48" id="ZzR-GE-VjR"/>
+                                        </constraints>
+                                        <state key="normal" title="Search"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="ZzR-GE-VjR"/>
+                                            </mask>
+                                        </variation>
+                                        <connections>
+                                            <action selector="search" destination="Wg3-cm-XWc" eventType="touchUpInside" id="ad3-BL-NAa"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="hHD-uc-DKZ" firstAttribute="centerY" secondItem="Zb5-Fm-Zms" secondAttribute="centerY" id="2b2-qd-zMK"/>
+                                    <constraint firstItem="hHD-uc-DKZ" firstAttribute="leading" secondItem="nqx-Gm-YVL" secondAttribute="trailing" constant="8" symbolic="YES" id="8lZ-kT-wbr"/>
+                                    <constraint firstItem="nqx-Gm-YVL" firstAttribute="top" secondItem="Zb5-Fm-Zms" secondAttribute="top" constant="7" id="lj0-iN-3Wt"/>
+                                    <constraint firstItem="hHD-uc-DKZ" firstAttribute="trailing" secondItem="Zb5-Fm-Zms" secondAttribute="trailingMargin" id="nRl-c2-zHK"/>
+                                    <constraint firstItem="nqx-Gm-YVL" firstAttribute="leading" secondItem="Zb5-Fm-Zms" secondAttribute="leadingMargin" id="osv-Xu-XJt"/>
+                                    <constraint firstItem="nqx-Gm-YVL" firstAttribute="top" secondItem="hHD-uc-DKZ" secondAttribute="top" id="uVe-Yi-fJ9"/>
+                                </constraints>
+                            </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9Sg-fa-XIt">
-                                <rect key="frame" x="0.0" y="94" width="600" height="457"/>
+                                <rect key="frame" x="0.0" y="108" width="600" height="443"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="b2H-cp-niw">
                                     <size key="itemSize" width="147" height="147"/>
@@ -433,13 +490,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="9Sg-fa-XIt" firstAttribute="top" secondItem="n0N-vs-dlj" secondAttribute="bottom" id="A0z-3V-f5q"/>
-                            <constraint firstItem="n0N-vs-dlj" firstAttribute="trailing" secondItem="9Sg-fa-XIt" secondAttribute="trailing" id="DhB-UW-hoL"/>
-                            <constraint firstAttribute="trailing" secondItem="n0N-vs-dlj" secondAttribute="trailing" id="EPf-41-XCU"/>
-                            <constraint firstItem="n0N-vs-dlj" firstAttribute="top" secondItem="gZq-zR-qnm" secondAttribute="bottom" id="My7-sg-3s1"/>
-                            <constraint firstItem="n0N-vs-dlj" firstAttribute="leading" secondItem="9Sg-fa-XIt" secondAttribute="leading" id="U8s-nH-skc"/>
-                            <constraint firstItem="9Sg-fa-XIt" firstAttribute="bottom" secondItem="FCD-fN-cVC" secondAttribute="top" id="ntB-Ha-KZH"/>
-                            <constraint firstItem="n0N-vs-dlj" firstAttribute="leading" secondItem="UDM-ld-zI1" secondAttribute="leading" id="sUs-vj-pIb"/>
+                            <constraint firstItem="Zb5-Fm-Zms" firstAttribute="leading" secondItem="9Sg-fa-XIt" secondAttribute="leading" id="6N0-Op-VL0"/>
+                            <constraint firstItem="9Sg-fa-XIt" firstAttribute="bottom" secondItem="FCD-fN-cVC" secondAttribute="top" id="7Qb-Ms-r20"/>
+                            <constraint firstItem="Zb5-Fm-Zms" firstAttribute="top" secondItem="gZq-zR-qnm" secondAttribute="bottom" id="WvF-9v-k6g"/>
+                            <constraint firstItem="9Sg-fa-XIt" firstAttribute="trailing" secondItem="Zb5-Fm-Zms" secondAttribute="trailing" id="Zrb-ZK-EYQ"/>
+                            <constraint firstItem="Zb5-Fm-Zms" firstAttribute="leading" secondItem="UDM-ld-zI1" secondAttribute="leading" id="jfq-jH-eaw"/>
+                            <constraint firstItem="9Sg-fa-XIt" firstAttribute="top" secondItem="Zb5-Fm-Zms" secondAttribute="bottom" id="jpr-n9-DY5"/>
+                            <constraint firstAttribute="trailing" secondItem="Zb5-Fm-Zms" secondAttribute="trailing" id="opf-wH-G7b"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="o5u-um-mcs" appends="YES" id="L7i-qv-huP"/>
@@ -448,7 +505,7 @@
                     <navigationItem key="navigationItem" id="wqI-Bh-68f"/>
                     <connections>
                         <outlet property="collectionView" destination="9Sg-fa-XIt" id="hCQ-1T-9XX"/>
-                        <outlet property="searchTextField" destination="n0N-vs-dlj" id="jFE-bQ-nSd"/>
+                        <outlet property="searchTextField" destination="nqx-Gm-YVL" id="xMz-Ne-Uwf"/>
                         <segue destination="0ZR-r2-Fcu" kind="show" identifier="Show Tweet" id="oqT-i5-QDc"/>
                     </connections>
                 </viewController>
@@ -468,7 +525,7 @@
         <image name="twitter" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JYR-rk-20q"/>
         <segue reference="oKF-Hn-8eO"/>
+        <segue reference="oqT-i5-QDc"/>
     </inferredMetricsTieBreakers>
 </document>

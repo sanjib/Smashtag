@@ -59,6 +59,12 @@ class TweetTableViewController: UITableViewController, UITextFieldDelegate {
         }
     }
     
+    @IBAction func search() {
+        refreshControl?.beginRefreshing()
+        searchTextField.resignFirstResponder()
+        setNewSearchRequest(searchTextField.text)
+    }
+    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         if textField == searchTextField {
             textField.resignFirstResponder()
